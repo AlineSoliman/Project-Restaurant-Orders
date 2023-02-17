@@ -36,4 +36,17 @@ def get_csv_data(csv_list):
 
 
 def analyze_log(path_to_file):
-    pass
+    extension = path_to_file.split(".")[1]
+    if extension != "csv":
+        raise FileNotFoundError(f"Extensão inválida: '{path_to_file}'")
+
+    try:
+        with open(path_to_file, mode="r") as file:
+            data = reader(file)
+            data_list = list(data)
+        get_csv_data(data_list)
+
+        return
+
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Arquivo inexistente: '{path_to_file}'")
